@@ -17,7 +17,7 @@ module CircularFIFO
   (
     .clk   (clk),
     .srst  (rst),
-    .din   (din),
+    .din   (adc_data_sync),
     .wr_en (wr_en),
     .rd_en (rd_en),
     .dout  (dout),

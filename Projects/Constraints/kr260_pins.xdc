@@ -1,4 +1,4 @@
-# ---- ADC eval board ----
+# ADC eval board
 set_property PACKAGE_PIN XX [get_ports {adc_data[0]}]
 set_property PACKAGE_PIN XX [get_ports {adc_data[1]}]
 set_property PACKAGE_PIN XX [get_ports {adc_data[2]}]
@@ -13,19 +13,28 @@ set_property PACKAGE_PIN XX [get_ports {adc_data[10]}]
 set_property PACKAGE_PIN XX [get_ports {adc_data[11]}]
 set_property PACKAGE_PIN XX [get_ports adc_dco]
 
-# ---- ESP32 ----
+# Rubik Pi SPI
+set_property PACKAGE_PIN XX [get_ports spi_sclk]
+set_property PACKAGE_PIN XX [get_ports spi_cs]
 set_property PACKAGE_PIN XX [get_ports trigger_in]
-set_property PACKAGE_PIN XX [get_ports esp32_ready]
-set_property PACKAGE_PIN XX [get_ports capture_done]
-set_property PACKAGE_PIN XX [get_ports data_out]
+set_property PACKAGE_PIN XX [get_ports spi_miso]
 
-# ---- voltage standard for all pins ----
+# Haptics
+set_property PACKAGE_PIN XX [get_ports haptic_out]
+
+# voltage standards
 set_property IOSTANDARD LVCMOS18 [get_ports {adc_data[*]}]
 set_property IOSTANDARD LVCMOS18 [get_ports adc_dco]
-set_property IOSTANDARD LVCMOS18 [get_ports trigger_in]
-set_property IOSTANDARD LVCMOS18 [get_ports esp32_ready]
-set_property IOSTANDARD LVCMOS18 [get_ports capture_done]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out]
+set_property IOSTANDARD LVCMOS33 [get_ports spi_sclk]
+set_property IOSTANDARD LVCMOS33 [get_ports spi_cs]
+set_property IOSTANDARD LVCMOS33 [get_ports trigger_in]
+set_property IOSTANDARD LVCMOS33 [get_ports spi_miso]
+set_property IOSTANDARD LVCMOS33 [get_ports haptic_out]
 
-# ---- clock constraint ----
-create_clock -period 4.0 -name adc_dco [get_ports adc_dco]
+# clock constraints
+create_clock -period 4.0  -name clk     [get_ports clk]
+create_clock -period 4.0  -name adc_dco [get_ports adc_dco]
+create_clock -period 20.0 -name spi_sclk [get_ports spi_sclk]
+
+# async clock groups
+set_clock_groups -asynchronous -group clk -group spi_sclk -group adc_dco

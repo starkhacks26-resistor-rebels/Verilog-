@@ -147,7 +147,7 @@ module BusCapture_FSM
   end
 
   //----------------------------------------------------------------------
-  // Output logic (Your original style preserved)
+  // Output logic 
     case(state_reg)
       STATE_IDLE: begin
         fifo_wr_en = 1'b1;

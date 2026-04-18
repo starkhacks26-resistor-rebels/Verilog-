@@ -1,20 +1,4 @@
-# ADC eval board
-set_property PACKAGE_PIN DB0 [get_ports {adc_data[0]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[1]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[2]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[3]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[4]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[5]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[6]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[7]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[8]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[9]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[10]}]
-set_property PACKAGE_PIN XX [get_ports {adc_data[11]}]
-set_property PACKAGE_PIN XX [get_ports adc_dco]
-
-# Rubik Pi SPI
-i# === PMOD1 — ADC data [0:7] ===
+# PMOD1 — ADC data [0:7]
 set_property PACKAGE_PIN H12 [get_ports {adc_data[0]}]
 set_property PACKAGE_PIN E10 [get_ports {adc_data[1]}]
 set_property PACKAGE_PIN D10 [get_ports {adc_data[2]}]
@@ -24,14 +8,15 @@ set_property PACKAGE_PIN E12 [get_ports {adc_data[5]}]
 set_property PACKAGE_PIN D11 [get_ports {adc_data[6]}]
 set_property PACKAGE_PIN B11 [get_ports {adc_data[7]}]
 
-# === PMOD2 — ADC data [8] + ADC control ===
+# PMOD2 — ADC data [8:15]
 set_property PACKAGE_PIN J11 [get_ports {adc_data[8]}]
-set_property PACKAGE_PIN K13 [get_ports adc_busy]
-set_property PACKAGE_PIN H11 [get_ports adc_frstdata]
-set_property PACKAGE_PIN F12 [get_ports adc_convst]
-set_property PACKAGE_PIN J10 [get_ports adc_cs]
-set_property PACKAGE_PIN K12 [get_ports adc_rd]
-set_property PACKAGE_PIN G10 [get_ports adc_reset]
+set_property PACKAGE_PIN J10 [get_ports {adc_data[9]}]
+set_property PACKAGE_PIN K13 [get_ports {adc_data[10]}]
+set_property PACKAGE_PIN K12 [get_ports {adc_data[11]}]
+set_property PACKAGE_PIN H11 [get_ports {adc_data[12]}]
+set_property PACKAGE_PIN G10 [get_ports {adc_data[13]}]
+set_property PACKAGE_PIN F12 [get_ports {adc_data[14]}]
+set_property PACKAGE_PIN F11 [get_ports {adc_data[15]}]
 
 # === PMOD3 — SPI + trigger + haptic ===
 set_property PACKAGE_PIN AE12 [get_ports spi_sclk]

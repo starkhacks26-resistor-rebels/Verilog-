@@ -9,10 +9,10 @@ module CircularFIFO
   input  logic        wr_clk,   // Connect to clk (250MHz)
   input  logic        rd_clk,   // Connect to spi_sclk (50MHz)
   input  logic        rst,
-  input  logic [17:0] din,
+  input  logic [15:0] din,
   input  logic        wr_en,
   input  logic        rd_en,
-  output logic [17:0] dout,
+  output logic [15:0] dout,
   output logic        full,
   output logic        empty
 );

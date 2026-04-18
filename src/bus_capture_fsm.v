@@ -12,7 +12,7 @@ module BusCapture_FSM
   (* keep=1 *) input  logic        rst,       // active high reset
 
   // ADC eval board
-  (* keep=1 *) input  logic [17:0] adc_data,  // 18 bit sample from AD7606C-18
+  (* keep=1 *) input  logic [15:0] adc_data,  // 16 bit sample from AD7606C-18
   (* keep=1 *) input  logic        adc_dco,   // data clock from ADC, pulses when sample is ready
 
   // Rubik Pi SPI interface
@@ -60,7 +60,7 @@ module BusCapture_FSM
   logic [4:0]  spi_bit_count; // counts 0-31, tracks which bit we are sending right now
 
   // Synchronizers
-  logic [17:0] adc_data_d1, adc_data_sync; // two flop sync: adc_data -> clk domain
+  logic [15:0] adc_data_d1, adc_data_sync; // two flop sync: adc_data -> clk domain
   logic        empty_d1, empty_sync;        // two flop sync: fifo_empty -> clk domain
 
   assign state          = state_reg;                      // expose state register to output port
@@ -114,7 +114,7 @@ module BusCapture_FSM
     end else if (!spi_cs) begin              // spi_cs low means Rubik Pi is actively talking
       if (spi_bit_count == 5'd0) begin       // bit count 0 means start of a new word
         if (!fifo_empty) begin               // only load if there is data to send
-          spi_shift_reg <= {14'b0, fifo_dout}; // load 18 bit sample padded to 32 bits
+          spi_shift_reg <= {16'b0, fifo_dout[15:0]}; // load 15 bit sample padded to 32 bits
           fifo_rd_en    <= 1'b1;               // pulse read enable to advance FIFO to next word
           spi_bit_count <= 5'd1;               // move to bit 1, start shifting
         end
@@ -148,6 +148,7 @@ module BusCapture_FSM
 
   //----------------------------------------------------------------------
   // Output logic 
+  always_comb begin
     case(state_reg)
       STATE_IDLE: begin
         fifo_wr_en = 1'b1;
@@ -170,6 +171,7 @@ module BusCapture_FSM
         haptic_out = 1'b0;
       end
     endcase
+  end
 
 endmodule
 `endif

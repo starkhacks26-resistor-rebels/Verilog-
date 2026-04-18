@@ -1,28 +1,33 @@
+//========================================================================
+// CircularFIFO (Dual-Clock Version)
+//========================================================================
 `ifndef CIRCULAR_FIFO_V
 `define CIRCULAR_FIFO_V
 
 module CircularFIFO
 (
-  (* keep=1 *) input  logic        clk,
-  (* keep=1 *) input  logic        rst,
-  (* keep=1 *) input  logic [11:0] din,
-  (* keep=1 *) input  logic        wr_en,
-  (* keep=1 *) input  logic        rd_en,
-  (* keep=1 *) output logic [11:0] dout,
-  (* keep=1 *) output logic        full,
-  (* keep=1 *) output logic        empty
+  input  logic        wr_clk,   // Connect to clk (250MHz)
+  input  logic        rd_clk,   // Connect to spi_sclk (50MHz)
+  input  logic        rst,
+  input  logic [17:0] din,
+  input  logic        wr_en,
+  input  logic        rd_en,
+  output logic [17:0] dout,
+  output logic        full,
+  output logic        empty
 );
 
-  fifo_generator_0 fifo_inst
-  (
-    .clk   (clk),
-    .srst  (rst),
-    .din   (adc_data_sync),
-    .wr_en (wr_en),
-    .rd_en (rd_en),
-    .dout  (dout),
-    .full  (full),
-    .empty (empty)
+  // Re-generate this IP in Vivado with "Independent Clocks"
+  fifo_generator_0 fifo_inst (
+    .wr_clk (wr_clk),
+    .rd_clk (rd_clk),
+    .rst    (rst),
+    .din    (din),
+    .wr_en  (wr_en),
+    .rd_en  (rd_en),
+    .dout   (dout),
+    .full   (full),
+    .empty  (empty)
   );
 
 endmodule

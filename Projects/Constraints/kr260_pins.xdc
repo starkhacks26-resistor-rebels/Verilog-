@@ -1,5 +1,5 @@
 # ADC eval board
-set_property PACKAGE_PIN XX [get_ports {adc_data[0]}]
+set_property PACKAGE_PIN DB0 [get_ports {adc_data[0]}]
 set_property PACKAGE_PIN XX [get_ports {adc_data[1]}]
 set_property PACKAGE_PIN XX [get_ports {adc_data[2]}]
 set_property PACKAGE_PIN XX [get_ports {adc_data[3]}]

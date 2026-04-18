@@ -1,27 +1,24 @@
-//========================================================================
-// CircularFIFO (Dual-Clock Version)
-//========================================================================
 `ifndef CIRCULAR_FIFO_V
 `define CIRCULAR_FIFO_V
 
 module CircularFIFO
 (
-  input  logic        wr_clk,   // Connect to clk (250MHz)
-  input  logic        rd_clk,   // Connect to spi_sclk (50MHz)
-  input  logic        rst,
-  input  logic [15:0] din,
-  input  logic        wr_en,
-  input  logic        rd_en,
-  output logic [15:0] dout,
-  output logic        full,
-  output logic        empty
+  (* keep=1 *) input  logic        wr_clk,  // write clock, main FPGA clock
+  (* keep=1 *) input  logic        rd_clk,  // read clock, SPI clock from Rubik Pi
+  (* keep=1 *) input  logic        rst,
+  (* keep=1 *) input  logic [15:0] din,     // 16 bit data in
+  (* keep=1 *) input  logic        wr_en,
+  (* keep=1 *) input  logic        rd_en,
+  (* keep=1 *) output logic [15:0] dout,    // 16 bit data out
+  (* keep=1 *) output logic        full,
+  (* keep=1 *) output logic        empty
 );
 
-  // Re-generate this IP in Vivado with "Independent Clocks"
-  fifo_generator_0 fifo_inst (
+  fifo_generator_0 fifo_inst
+  (
     .wr_clk (wr_clk),
     .rd_clk (rd_clk),
-    .rst    (rst),
+    .srst   (rst),
     .din    (din),
     .wr_en  (wr_en),
     .rd_en  (rd_en),
